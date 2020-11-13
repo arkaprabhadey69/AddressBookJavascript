@@ -149,7 +149,8 @@ function getCountByState(contactArray, stateName) {
     console.log("Number of contacts living in this state are: " + count);
 }
 //Function to sort on the basis of names
-function sortedContacts(contactArray) {
+function sortedContacts(contactArray,type) {
+    if(type=="Name"){
     contactArray.sort(function (a, b) {
         var nameA = a.firstName.toLowerCase(), nameB = b.firstName.toLowerCase()
         if (nameA < nameB)
@@ -160,6 +161,34 @@ function sortedContacts(contactArray) {
     });
     contactArray.forEach(emp => console.log(emp.toString()));
 }
+else if(type=="City"){
+    contactArray.sort(function (a, b) {
+        var nameA = a.city.toLowerCase(), nameB = b.city.toLowerCase()
+        if (nameA < nameB)
+            return -1
+        if (nameA > nameB)
+            return 1
+        return 0
+    });
+    contactArray.forEach(emp => console.log(emp.toString()));
+}
+else if(type=="State"){
+    contactArray.sort(function (a, b) {
+        var nameA = a.state.toLowerCase(), nameB = b.state.toLowerCase()
+        if (nameA < nameB)
+            return -1
+        if (nameA > nameB)
+            return 1
+        return 0
+    });
+    contactArray.forEach(emp => console.log(emp.toString()));
+}
+else{
+    contactArray.sort(function (a, b) { return a.zip - b.zip });
+    contactArray.forEach(emp => console.log(emp.toString()));
+}
+}
+//Sorting Function
 
 try {
     let contact = new Contact("Arka", "Prabha", "Hazra", "Kolkata", "WBengal", 700026, '91 7980430469', 'abc@yahoo.com');
@@ -204,7 +233,16 @@ try {
     getCountByState(addressBook, "Maharashthra");
     console.log("                   ");
     console.log("----Contacts sorted on the basis of name---------");
-    sortedContacts(addressBook);
+    sortedContacts(addressBook,"Name");
+    console.log("                   ");
+    console.log("----Contacts sorted on the basis of city---------");
+    sortedContacts(addressBook,"City");
+    console.log("                   ");
+    console.log("----Contacts sorted on the basis of state---------");
+    sortedContacts(addressBook,"State");
+    console.log("                   ");
+    console.log("----Contacts sorted on the basis of zip---------");
+    sortedContacts(addressBook,"Zip");
 
 }
 catch (e) {
