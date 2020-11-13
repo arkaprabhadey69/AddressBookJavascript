@@ -107,6 +107,18 @@ function countContacts(contactArray){
    let count= contactArray.reduce((acc, curVal) => acc.concat(curVal), []).length;
    console.log("Number of contacts is: "+count);
 }
+//Function to get contacts by city name
+function getPersonByCity(contactArray,cityName){
+    contactArray.filter(name => name.city == cityName).forEach(contact=>console.log(contact.toString()));
+}
+//Function to get contacts by state name
+function getPersonByState(contactArray,stateName){
+    contactArray.filter(name => name.state == stateName).forEach(contact=>console.log(contact.toString()));
+}
+function isPresent(contactArray,name,stateName){
+    let contactSearched=contactArray.filter(name => name.state == stateName).find(o => o.firstName=== name);
+    console.log(contactSearched.toString());
+}
 
 try {
     let contact = new Contact("Arka", "Prabha", "Hazra", "Kolkata", "WBengal", 700026, '91 7980430469', 'abc@yahoo.com');
@@ -119,11 +131,17 @@ try {
     updateName(addressBook, "Arka", "Orko");
     console.log("------After Updating---------");
     addressBook.forEach(contact => console.log(contact.toString()));
-    deleteName(addressBook,"Ritu");
-    console.log("------After Deleting ---------");
-    addressBook.forEach(contact => console.log(contact.toString()));
+    // deleteName(addressBook,"Ritu");
+    // console.log("------After Deleting ---------");
+   // addressBook.forEach(contact => console.log(contact.toString()));
     console.log("----Getting the count---------");
     countContacts(addressBook);
+    console.log("----Getting contacts by city name---------");
+    getPersonByCity(addressBook,"Kolkata");
+    console.log("----Getting contacts by state name---------");
+    getPersonByState(addressBook,"Maharashthra");
+    console.log("----Searching contacts in a state---------");
+    isPresent(addressBook,"Sayak","MWBengal");
 
 }
 catch (e) {
