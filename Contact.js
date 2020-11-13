@@ -89,59 +89,82 @@ function updateName(contact, oldName, newName) {
 }
 //Function to add name in addressBook
 function addName(contactArray, contact) {
-    for(contacts in contactArray){
-        if(contacts.firstName==contact.firstName){
+    for (contacts in contactArray) {
+        if (contacts.firstName == contact.firstName) {
             throw 'Name already taken';
-            
+
         }
     }
     contactArray.push(contact);
 }
 //Function to delete name in addressBook
-function deleteName(contactArray, name){
-    var removeIndex = contactArray.map(item=>item.firstName).indexOf(name);
-    contactArray.splice(removeIndex,1);
+function deleteName(contactArray, name) {
+    var removeIndex = contactArray.map(item => item.firstName).indexOf(name);
+    contactArray.splice(removeIndex, 1);
 }
 //Function to count the contacts
-function countContacts(contactArray){
-   let count= contactArray.reduce((acc, curVal) => acc.concat(curVal), []).length;
-   console.log("Number of contacts is: "+count);
+function countContacts(contactArray) {
+    let count = contactArray.reduce((acc, curVal) => acc.concat(curVal), []).length;
+    console.log("Number of contacts is: " + count);
 }
 //Function to get contacts by city name
-function getPersonByCity(contactArray,cityName){
-    contactArray.filter(name => name.city == cityName).forEach(contact=>console.log(contact.toString()));
+function getPersonByCity(contactArray, cityName) {
+    contactArray.filter(name => name.city == cityName).forEach(contact => console.log(contact.toString()));
 }
 //Function to get contacts by state name
-function getPersonByState(contactArray,stateName){
-    contactArray.filter(name => name.state == stateName).forEach(contact=>console.log(contact.toString()));
+function getPersonByState(contactArray, stateName) {
+    contactArray.filter(name => name.state == stateName).forEach(contact => console.log(contact.toString()));
 }
-function isPresent(contactArray,name,stateName){
-    let contactSearched=contactArray.filter(name => name.state == stateName).find(o => o.firstName=== name);
+//Function to search for contacts in state
+function isPresentInState(contactArray, name, stateName) {
+    let contactSearched = contactArray.filter(name => name.state == stateName).find(o => o.firstName === name);
+    if(contactSearched!=undefined){
     console.log(contactSearched.toString());
+    }
+    else{
+        console.log("Person not found in this state");
+    }
+
+}
+//Function to search for contacts in city
+function isPresentInCity(contactArray, name, cityName) {
+    let contactSearched = contactArray.filter(name => name.city == cityName).find(o => o.firstName === name);
+    if(contactSearched!=undefined){
+        console.log(contactSearched.toString());
+
+    }
+    else{
+        console.log("Person not found in this city");
+    }
+
 }
 
 try {
     let contact = new Contact("Arka", "Prabha", "Hazra", "Kolkata", "WBengal", 700026, '91 7980430469', 'abc@yahoo.com');
     let contact2 = new Contact("Ritu", "Biswas", "Rashbehari", "Mumbai", "Maharashthra", 780067, '91 7988930469', 'xyz@yahoo.com');
     let contact3 = new Contact("Sayak", "Mondal", "Hazra", "Kolkata", "WBengal", 700067, '91 7989930469', 'def@yahoo.com');
+    let contact4 = new Contact("Saunak", "Mondal", "Hazra", "Mumbai", "Maharashthra",700067, '91 6989930469', 'acid@yahoo.com');
     let addressBook = new Array();
     addName(addressBook, contact);
     addName(addressBook, contact2);
     addName(addressBook, contact3);
+    addName(addressBook, contact4);
     updateName(addressBook, "Arka", "Orko");
     console.log("------After Updating---------");
     addressBook.forEach(contact => console.log(contact.toString()));
-    // deleteName(addressBook,"Ritu");
-    // console.log("------After Deleting ---------");
-   // addressBook.forEach(contact => console.log(contact.toString()));
+    deleteName(addressBook, "Ritu");
+    console.log("------After Deleting ---------");
+    addressBook.forEach(contact => console.log(contact.toString()));
     console.log("----Getting the count---------");
     countContacts(addressBook);
     console.log("----Getting contacts by city name---------");
-    getPersonByCity(addressBook,"Kolkata");
+    getPersonByCity(addressBook, "Kolkata");
     console.log("----Getting contacts by state name---------");
-    getPersonByState(addressBook,"Maharashthra");
+    getPersonByState(addressBook, "Maharashthra");
     console.log("----Searching contacts in a state---------");
-    isPresent(addressBook,"Sayak","MWBengal");
+    isPresentInState(addressBook, "Sayak", "MWBengal");
+    console.log("----Searching contacts in a city---------");
+    isPresentInCity(addressBook, "Sayak", "Kolkata");
 
 }
 catch (e) {
