@@ -89,6 +89,12 @@ function updateName(contact, oldName, newName) {
 }
 //Function to add name in addressBook
 function addName(contactArray, contact) {
+    for(contacts in contactArray){
+        if(contacts.firstName==contact.firstName){
+            throw 'Name already taken';
+            
+        }
+    }
     contactArray.push(contact);
 }
 //Function to delete name in addressBook
@@ -96,19 +102,28 @@ function deleteName(contactArray, name){
     var removeIndex = contactArray.map(item=>item.firstName).indexOf(name);
     contactArray.splice(removeIndex,1);
 }
+//Function to count the contacts
+function countContacts(contactArray){
+   let count= contactArray.reduce((acc, curVal) => acc.concat(curVal), []).length;
+   console.log("Number of contacts is: "+count);
+}
 
 try {
     let contact = new Contact("Arka", "Prabha", "Hazra", "Kolkata", "WBengal", 700026, '91 7980430469', 'abc@yahoo.com');
     let contact2 = new Contact("Ritu", "Biswas", "Rashbehari", "Mumbai", "Maharashthra", 780067, '91 7988930469', 'xyz@yahoo.com');
+    let contact3 = new Contact("Sayak", "Mondal", "Hazra", "Kolkata", "WBengal", 700067, '91 7989930469', 'def@yahoo.com');
     let addressBook = new Array();
     addName(addressBook, contact);
     addName(addressBook, contact2);
+    addName(addressBook, contact3);
     updateName(addressBook, "Arka", "Orko");
     console.log("------After Updating---------");
     addressBook.forEach(contact => console.log(contact.toString()));
     deleteName(addressBook,"Ritu");
     console.log("------After Deleting ---------");
     addressBook.forEach(contact => console.log(contact.toString()));
+    console.log("----Getting the count---------");
+    countContacts(addressBook);
 
 }
 catch (e) {
